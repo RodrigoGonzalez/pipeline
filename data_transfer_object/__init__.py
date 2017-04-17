@@ -42,3 +42,48 @@ while s1[:mid] != s1[-mid:][::-1]:
     print s1
 
 print s1
+
+# Nested Loops: Comfortable Numbers
+seg,pairs = xrange(L,R+1),[]
+for x in seg:
+    bound = sum(map(int, str(x)))
+    pairs.append([(x,y) for y in range(x-bound, x+bound+1) if (y!=x and y in seg)])
+
+P = [(x,y) for x,y in sum(pairs,[]) if x < y]
+
+# Nested Loops: Weak Numbers
+divs = lambda x: [y for y in range(1,x) if not x%y]
+D = [len(divs(x)) for x in xrange(1,n+1)]
+Weak = [len(filter(lambda x: x > D[i], D[:i])) for i in xrange(1,n+1)]
+
+# Rectangle Rotation
+a,b = 6,4
+P = [(x,y) for x in range(-b/2,b/2+1) for y in range(-a/2,a/2+1)]
+
+def rectangleRotation(a, b):
+    x_new = lambda x,y: (x-y)*math.sqrt(2)/2
+    y_new = lambda x,y: (x+y)*math.sqrt(2)/2
+    slope = lambda x1,y1,x2,y2: (y2-y1)/float((x2-x1))
+    intercept = lambda slope,x,y: y - x*slope
+    y_calc = lambda x,slope,intercept: slope*x + intercept
+    sign_pos = lambda y,y_calc: y_calc - y >= 0
+    sign_neg = lambda y,y_calc: y_calc - y <= 0
+    P = [(x,y) for x in range(-b/2,b/2+1) for y in range(-a/2,a/2+1)]
+    x1,y1,x2,y2,x3,y3,x4,y4 = -b/2., a/2., b/2., a/2., -b/2., -a/2.,b/2., -a/2.,
+    slope1_4 = slope(x_new(x1,y1),y_new(x1,y1),x_new(x4,y4),y_new(x4,y4))
+    slope1_2 = slope(x_new(x1,y1),y_new(x1,y1),x_new(x2,y2),y_new(x2,y2))
+    slope2_3 = slope(x_new(x2,y2),y_new(x2,y2),x_new(x3,y3),y_new(x3,y3))
+    slope3_4 = slope(x_new(x3,y3),y_new(x3,y3),x_new(x4,y4),y_new(x4,y4))
+    int1_4 = slope1_4(slope1_4,x1,y1)
+    int1_2 = slope1_2(slope1_2,x2,y2)
+    int2_3 = slope2_3(slope2_3,x3,y3)
+    int3_4 = slope3_4(slope3_4,x4,y4)
+    pts_inside = []
+    for x,y in P:
+        y_calc14 = y_calc(x,slope1_4,int1_4)
+        y_calc12 = y_calc(x,slope1_2,int1_2)
+        y_calc23 = y_calc(x,slope2_3,int2_3)
+        y_calc34 = y_calc(x,slope3_4,int3_4)
+        if all(sign_pos(sign_pos(y,y_calc12)), sign_pos(y,y_calc14), sign_neg(y,y_calc23), sign_neg(y,y_calc34)):
+            pts_inside.append((x,y))
+    return len(pts_inside)
