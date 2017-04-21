@@ -74,10 +74,10 @@ def rectangleRotation(a, b):
     slope1_2 = slope(x_new(x1,y1),y_new(x1,y1),x_new(x2,y2),y_new(x2,y2))
     slope2_3 = slope(x_new(x2,y2),y_new(x2,y2),x_new(x3,y3),y_new(x3,y3))
     slope3_4 = slope(x_new(x3,y3),y_new(x3,y3),x_new(x4,y4),y_new(x4,y4))
-    int1_4 = slope1_4(slope1_4,x1,y1)
-    int1_2 = slope1_2(slope1_2,x2,y2)
-    int2_3 = slope2_3(slope2_3,x3,y3)
-    int3_4 = slope3_4(slope3_4,x4,y4)
+    int1_4 = intercept(slope1_4,x1,y1)
+    int1_2 = intercept(slope1_2,x2,y2)
+    int2_3 = intercept(slope2_3,x3,y3)
+    int3_4 = intercept(slope3_4,x4,y4)
     pts_inside = []
     for x,y in P:
         y_calc14 = y_calc(x,slope1_4,int1_4)
