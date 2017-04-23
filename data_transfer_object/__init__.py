@@ -60,6 +60,7 @@ Weak = [len(filter(lambda x: x > D[i], D[:i])) for i in xrange(1,n+1)]
 a,b = 6,4
 P = [(x,y) for x in range(-b/2,b/2+1) for y in range(-a/2,a/2+1)]
 
+#check have to redo
 def rectangleRotation(a, b):
     x_new = lambda x,y: (x-y)*math.sqrt(2)/2
     y_new = lambda x,y: (x+y)*math.sqrt(2)/2
