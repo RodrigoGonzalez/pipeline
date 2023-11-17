@@ -48,50 +48,45 @@ def parameters_grid(regr_name, score_num, cv=3, n_comps=range(10, 250, 10)):
     }
 
 
-    if regr_name == 'ElasticNet':
+    if regr_name == 'AdaBoostRegressor':
+        add_params = {'regr__n_estimators': TREES,
+                      'regr__loss': LOSS_ADA}
+
+    elif regr_name == 'ElasticNet':
         add_params = {'regr__alpha': ALPHA,
                       'regr__l1_ratio': L1_RATIO
                       }
 
+    elif regr_name == 'GradientBoostingRegressor':
+        add_params = {'regr__n_estimators': TREES,
+                      'regr__max_depth': MAX_DEPTH}
+
     elif regr_name == 'Lasso':
         add_params = {'regr__alpha': ALPHA}
 
-    elif regr_name == 'Ridge':
-        add_params = {'regr__alpha': ALPHA,
-                      'regr__solver': SOLVER}
-
-    elif regr_name == 'SVR':
-        add_params = {'regr__C': Cs,
-                      'regr__epsilon': EPSILON}
+    elif regr_name == 'LinearSVR':
+        add_params = {'regr__C': Cs}
 
     elif regr_name == 'NuSVR':
         add_params = {'regr__C': Cs,
                       'regr__nu': NU}
 
-    elif regr_name == 'LinearSVR':
-        add_params = {'regr__C': Cs}
+    elif regr_name in ['RandomForestRegressor', 'ExtraTreesRegressor']:
+        add_params = {'regr__n_estimators': TREES,
+                      'regr__criterion': CRITERION,
+                      'regr__max_depth': MAX_DEPTH}
+
+    elif regr_name == 'Ridge':
+        add_params = {'regr__alpha': ALPHA,
+                      'regr__solver': SOLVER}
 
     elif regr_name == 'SGDRegressor':
         add_params = {'regr__l1_ratio': L1_RATIO,
                       'regr__loss': LOSS_LGD}
 
-    elif regr_name == 'AdaBoostRegressor':
-        add_params = {'regr__n_estimators': TREES,
-                      'regr__loss': LOSS_ADA}
-
-    elif regr_name == 'RandomForestRegressor':
-        add_params = {'regr__n_estimators': TREES,
-                      'regr__criterion': CRITERION,
-                      'regr__max_depth': MAX_DEPTH}
-
-    elif regr_name == 'ExtraTreesRegressor':
-        add_params = {'regr__n_estimators': TREES,
-                      'regr__criterion': CRITERION,
-                      'regr__max_depth': MAX_DEPTH}
-
-    elif regr_name == 'GradientBoostingRegressor':
-        add_params = {'regr__n_estimators': TREES,
-                      'regr__max_depth': MAX_DEPTH}
+    elif regr_name == 'SVR':
+        add_params = {'regr__C': Cs,
+                      'regr__epsilon': EPSILON}
 
     parameters.update(add_params)
 

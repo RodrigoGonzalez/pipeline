@@ -12,9 +12,6 @@ def palindrome_string(s):
             elif a < b:
                 s1[-i-1] = a
                 s1[-i-2] += 1
-            else:
-                pass
-
         if 123 in s1:
             loc_inc = s1.index(chr(123))
             while 123 in s1:
